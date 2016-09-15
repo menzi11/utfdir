@@ -20,14 +20,14 @@ def printGBK(text):
 
 def GBK_to_UTF8_withBOM(filename) :
     handle = open(filename , "rb")
-    context = handle.read()
-    code = chardet.detect(context)
     tmp = os.path.splitext(filename)[1];
-    print( code['encoding'] )
     if tmp != b'.h' and tmp != b'.cpp' and tmp != b'.txt' and tmp != b'.TXT' :
+    #print( code['encoding'] )
         print('1')
         print( tmp )
         return
+    context = handle.read()
+    code = chardet.detect(context)
     if code['encoding'] == None :
         print('3')
         return
@@ -62,10 +62,10 @@ def walk_dir(dir):
         #print(dirs)
         #print Chinese(files)
         for name in files:
-            print( name.decode('gbk') )
+            #print( name.decode('gbk') )
             GBK_to_UTF8_withBOM( os.path.join(root, name) )
             #tab_to_4_space( os.path.join(root, name) )
             #printGBK( name ) #Chinese(name)
             print( "---------------" )
 
-walk_dir(u".....".encode('gbk'))
+walk_dir(u"C:\wkspaces\Heavier7Strings\src".encode('gbk'))
