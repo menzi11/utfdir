@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 # how to use:
@@ -9,8 +9,8 @@
 # py utfdir
 
 import os
-import chardet
 import sys
+import chardet
 
 if len(sys.argv) == 1:
     user_path = os.getcwd()
@@ -37,7 +37,8 @@ def encode_files_to_utf8(filename, ignore_extension=False):
     if guessed_code is None:
         return
     if guessed_code != target_code and guessed_code != other_code_dont_need_to_decode:
-        print('code \"' + guessed_code + '\" found in file \"' + filename + '\", begin to process!')
+        print('code \"' + guessed_code + '\" found in file \"' + filename +
+              '\", begin to process!')
         decoded_text = data.decode(guessed_code).encode(target_code)
         handle = open(filename, 'w')
         handle.write(decoded_text)
@@ -50,12 +51,16 @@ def walk_dir_than_process(input_dir):
         for name in files:
             encode_files_to_utf8(os.path.join(root, name))
 
-print( "We are about to run utfdir at path \"" + user_path +"\"" )
+
+print("We are about to run utfdir at path \"" + user_path + "\"")
 if os.path.exists(user_path):
     if os.path.isfile(user_path):
-        encode_files_to_utf8(user_path , True)
+        encode_files_to_utf8(user_path, True)
     else:
         walk_dir_than_process(user_path)
     print("Success done!!")
 else:
-    print("The path you selected:\""+user_path+"\" don't seems like a file or folder, utfdir will do nothing but exit.")
+    print(
+        "The path you selected:\"" + user_path +
+        "\" don't seems like a file or folder, utfdir will do nothing but exit."
+    )
