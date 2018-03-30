@@ -17,7 +17,7 @@ if len(sys.argv) == 1:
 else:
     user_path = sys.argv[1]
 
-file_types = ['.h', '.cpp', '.hpp', '.txt', '.py']
+file_types = ['.h', '.cpp', '.hpp', '.txt', '.py', '.m', '.md' ]
 
 # change here if you want other code, not utf8
 target_code = 'UTF-8-SIG'
@@ -25,14 +25,13 @@ target_code = 'UTF-8-SIG'
 # you can change here to 'ascii', if you want leave ascii files unchanged.
 other_code_dont_need_to_decode = None
 
-
 def encode_files_to_utf8(filename, ignore_extension=False):
     handle = open(filename, "rb")
     data = handle.read()
     handle.close()
     guessed_code = chardet.detect(data)['encoding']
     tmp = os.path.splitext(filename)[1]
-    if tmp not in file_types or not ignore_extension:
+    if tmp not in file_types and not ignore_extension:
         return
     if guessed_code is None:
         return
@@ -40,7 +39,7 @@ def encode_files_to_utf8(filename, ignore_extension=False):
         print('code \"' + guessed_code + '\" found in file \"' + filename +
               '\", begin to process!')
         decoded_text = data.decode(guessed_code).encode(target_code)
-        handle = open(filename, 'w')
+        handle = open(filename, 'wb')
         handle.write(decoded_text)
         handle.close()
 
@@ -64,3 +63,7 @@ else:
         "The path you selected:\"" + user_path +
         "\" don't seems like a file or folder, utfdir will do nothing but exit."
     )
+
+# 判断操作系统，如果是windows就让它暂停一下，这样windows用户看着爽。
+if sys.platform == 'win32':
+    os.system("pause")
