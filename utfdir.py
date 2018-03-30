@@ -26,13 +26,16 @@ target_code = 'UTF-8-SIG'
 other_code_dont_need_to_decode = None
 
 def encode_files_to_utf8(filename, ignore_extension=False):
-    handle = open(filename, "rb")
-    data = handle.read()
-    handle.close()
-    guessed_code = chardet.detect(data)['encoding']
     tmp = os.path.splitext(filename)[1]
     if tmp not in file_types and not ignore_extension:
         return
+    handle = open(filename, "rb")
+    data = handle.read()
+    handle.close()
+    if len(data) < 65536*4:
+        guessed_code = chardet.detect(data)['encoding']
+    else:
+        guessed_code = chardet.detect(data[0:65536])['encoding']
     if guessed_code is None:
         return
     if guessed_code != target_code and guessed_code != other_code_dont_need_to_decode:
