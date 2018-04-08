@@ -17,7 +17,7 @@ if len(sys.argv) == 1:
 else:
     user_path = sys.argv[1]
 
-file_types = ['.h', '.cpp', '.hpp', '.txt', '.py', '.m', '.md' ]
+file_types = ['.h', '.cpp', '.hpp', '.txt', '.py', '.md', '.py' ]
 
 # change here if you want other code, not utf8
 target_code = 'UTF-8-SIG'
