@@ -17,6 +17,8 @@ if len(sys.argv) == 1:
 else:
     user_path = sys.argv[1]
 
+# I was thinking about add "*.m" matlab files, but it's seems like matlab love
+# Matlab prefers local encoding instead of UTF encoding.
 file_types = ['.h', '.cpp', '.hpp', '.txt', '.py', '.md', '.py' ]
 
 # change here if you want other code, not utf8
@@ -53,14 +55,13 @@ def walk_dir_than_process(input_dir):
         for name in files:
             encode_files_to_utf8(os.path.join(root, name))
 
-
 print("We are about to run utfdir at path \"" + user_path + "\"")
 if os.path.exists(user_path):
     if os.path.isfile(user_path):
         encode_files_to_utf8(user_path, True)
     else:
         walk_dir_than_process(user_path)
-    print("Success done!!")
+    print("Success!!")
 else:
     print(
         "The path you selected:\"" + user_path +
